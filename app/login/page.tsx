@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { saveSession, isAuthenticated } from '@/lib/auth';
+import { setAdminSession } from '@/lib/admin-auth';
 import { User, Hash, AlertCircle } from 'lucide-react';
 
 export default function LoginPage() {
@@ -31,6 +32,24 @@ export default function LoginPage() {
         setError('Please fill in all fields');
         setLoading(false);
         return;
+      }
+
+      // Check if admin credentials
+      if ((name.trim() === 'admin1' || name.trim() === 'admin2') && number.trim() === 'admin123') {
+        const { data: adminUser, error: adminError } = await supabase
+          .from('admin_users')
+          .select('*')
+          .eq('username', name.trim())
+          .single();
+
+        if (!adminError && adminUser) {
+          setAdminSession({
+            adminId: adminUser.id,
+            username: adminUser.username,
+          });
+          router.push('/admin/review');
+          return;
+        }
       }
 
       // Check if player exists
