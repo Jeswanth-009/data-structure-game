@@ -337,7 +337,9 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
 -- Insert admin users
 -- Munisree password: 323106410048
 -- Srivalli password: 323106410038
+-- Sowmya password: 323506402502
 INSERT INTO admin_users (username, password_hash) VALUES
 ('Munisree', '323106410048'),
-('Srivalli', '323106410038')
+('Srivalli', '323106410038'),
+('Sowmya', '323506402502')
 ON CONFLICT (username) DO NOTHING;

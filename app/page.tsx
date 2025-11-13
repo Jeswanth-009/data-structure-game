@@ -97,7 +97,7 @@ export default function Home() {
               💡 <strong className="text-detective-amber">Note:</strong> Answers are reviewed by admins before scores are updated!
             </p>
             <p className="text-xs text-foreground/50 text-center mt-2">
-              🛡️ Admin access: Munisree or Srivalli
+              🛡️ Admin access: Munisree, Srivalli, or Sowmya
             </p>
           </div>
         </div>

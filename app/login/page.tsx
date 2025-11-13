@@ -35,7 +35,7 @@ export default function LoginPage() {
       }
 
       // Check if admin credentials
-      if ((name.trim() === 'Munisree' || name.trim() === 'Srivalli')) {
+      if ((name.trim() === 'Munisree' || name.trim() === 'Srivalli' || name.trim() === 'Sowmya')) {
         const { data: adminUser, error: adminError } = await supabase
           .from('admin_users')
           .select('*')
