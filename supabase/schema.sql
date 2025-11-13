@@ -17,6 +17,16 @@ CREATE TABLE IF NOT EXISTS admin_users (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Create cases table
+CREATE TABLE IF NOT EXISTS cases (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  brief TEXT NOT NULL,
+  unlock_time TIMESTAMPTZ NOT NULL,
+  questions JSONB NOT NULL,
+  max_score INTEGER NOT NULL
+);
+
 -- Create submissions table
 CREATE TABLE IF NOT EXISTS submissions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -28,16 +38,6 @@ CREATE TABLE IF NOT EXISTS submissions (
   reviewed_by UUID REFERENCES admin_users(id),
   reviewed_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Create cases table
-CREATE TABLE IF NOT EXISTS cases (
-  id TEXT PRIMARY KEY,
-  title TEXT NOT NULL,
-  brief TEXT NOT NULL,
-  unlock_time TIMESTAMPTZ NOT NULL,
-  questions JSONB NOT NULL,
-  max_score INTEGER NOT NULL
 );
 
 -- Create index on players for leaderboard queries

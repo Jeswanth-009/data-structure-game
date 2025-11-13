@@ -46,7 +46,7 @@ export default function AdminReviewPage() {
         (submissionsData || []).map(async (sub) => {
           const [playerRes, caseRes] = await Promise.all([
             supabase.from('players').select('name, number').eq('id', sub.player_id).single(),
-            supabase.from('cases').select('title, questions').eq('id', sub.case_id).single(),
+            supabase.from('cases').select('title, questions, max_score').eq('id', sub.case_id).single(),
           ]);
 
           return {
@@ -55,6 +55,7 @@ export default function AdminReviewPage() {
             player_number: playerRes.data?.number || 'N/A',
             case_title: caseRes.data?.title || 'Unknown Case',
             case_questions: caseRes.data?.questions || [],
+            max_score: caseRes.data?.max_score || 0,
           };
         })
       );
@@ -271,15 +272,18 @@ export default function AdminReviewPage() {
                 <div className="bg-detective-charcoal p-4 rounded-lg">
                   <label className="block text-sm font-medium text-detective-amber mb-2">
                     <Trophy className="inline w-4 h-4 mr-2" />
-                    Assign Score
+                    Assign Score (Max: {selectedSubmission.max_score})
                   </label>
                   <input
                     type="number"
                     value={reviewScore}
-                    onChange={(e) => setReviewScore(parseInt(e.target.value) || 0)}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 0;
+                      setReviewScore(Math.min(value, selectedSubmission.max_score));
+                    }}
                     className="detective-input"
                     min="0"
-                    max={selectedSubmission.case_questions.length}
+                    max={selectedSubmission.max_score}
                   />
                 </div>
               </div>

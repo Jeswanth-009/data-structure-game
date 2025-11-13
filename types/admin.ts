@@ -21,4 +21,5 @@ export interface SubmissionWithDetails extends Submission {
   player_number: string;
   case_title: string;
   case_questions: any[];
+  max_score: number;
 }
