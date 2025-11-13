@@ -35,11 +35,12 @@ export default function LoginPage() {
       }
 
       // Check if admin credentials
-      if ((name.trim() === 'Munisree-323106410048' || name.trim() === 'Srivalli-323106410038') && number.trim() === 'admin123') {
+      if ((name.trim() === 'Munisree' || name.trim() === 'Srivalli')) {
         const { data: adminUser, error: adminError } = await supabase
           .from('admin_users')
           .select('*')
           .eq('username', name.trim())
+          .eq('password_hash', number.trim())
           .single();
 
         if (!adminError && adminUser) {

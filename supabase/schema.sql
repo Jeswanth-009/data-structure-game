@@ -334,9 +334,10 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
   7
 );
 
--- Insert admin users (password: admin123 - hashed with bcrypt)
--- In production, use proper password hashing
+-- Insert admin users
+-- Munisree password: 323106410048
+-- Srivalli password: 323106410038
 INSERT INTO admin_users (username, password_hash) VALUES
-('Munisree-323106410048', '$2a$10$rXK5X8BqGqJxJqE8qKp5xOZYqF5qhX8qZ8qKp5xOZYqF5qhX8qZ8q'),
-('Srivalli-323106410038', '$2a$10$rXK5X8BqGqJxJqE8qKp5xOZYqF5qhX8qZ8qKp5xOZYqF5qhX8qZ8q')
+('Munisree', '323106410048'),
+('Srivalli', '323106410038')
 ON CONFLICT (username) DO NOTHING;
