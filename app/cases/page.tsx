@@ -118,65 +118,6 @@ export default function CasesPage() {
           </div>
         </div>
 
-        {/* Unlock Schedule Section */}
-        {cases.some(c => !isCaseUnlocked(c)) && (
-          <div className="detective-file mt-6 sm:mt-8">
-            <h2 className="text-lg sm:text-xl font-bold text-detective-amber mb-4 font-mono flex items-center gap-2">
-              <Clock className="w-5 h-5" />
-              📅 UPCOMING CASE SCHEDULE
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {cases
-                .filter(c => !isCaseUnlocked(c))
-                .map((caseData) => {
-                  const unlockDate = new Date(caseData.unlock_time);
-                  const formattedDate = unlockDate.toLocaleDateString('en-IN', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric'
-                  });
-                  const formattedTime = unlockDate.toLocaleTimeString('en-IN', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true
-                  });
-
-                  return (
-                    <div
-                      key={caseData.id}
-                      className="bg-detective-dark border border-detective-grey rounded-lg p-4"
-                    >
-                      <div className="flex items-start gap-3">
-                        <Lock className="w-5 h-5 text-detective-amber flex-shrink-0 mt-1" />
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-bold text-detective-amber-light mb-1 text-sm break-words">
-                            {caseData.title}
-                          </h3>
-                          <div className="text-xs text-foreground/60 mb-2">
-                            {caseData.id}
-                          </div>
-                          <div className="flex flex-col gap-1">
-                            <div className="flex items-center gap-2 text-xs text-foreground/80">
-                              <span className="text-detective-amber">📅</span>
-                              <span>{formattedDate}</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-xs text-foreground/80">
-                              <span className="text-detective-amber">🕐</span>
-                              <span>{formattedTime}</span>
-                            </div>
-                            <div className="text-xs text-yellow-500 mt-1 font-medium">
-                              {getTimeUntilUnlock(caseData.unlock_time)}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-        )}
-
         {/* Cases Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {cases.map((caseData) => {
@@ -286,6 +227,65 @@ export default function CasesPage() {
             </div>
           </div>
         </div>
+
+        {/* Unlock Schedule Section */}
+        {cases.some(c => !isCaseUnlocked(c)) && (
+          <div className="detective-file mt-6 sm:mt-8">
+            <h2 className="text-lg sm:text-xl font-bold text-detective-amber mb-4 font-mono flex items-center gap-2">
+              <Clock className="w-5 h-5" />
+              📅 UPCOMING CASE SCHEDULE
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {cases
+                .filter(c => !isCaseUnlocked(c))
+                .map((caseData) => {
+                  const unlockDate = new Date(caseData.unlock_time);
+                  const formattedDate = unlockDate.toLocaleDateString('en-IN', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                  });
+                  const formattedTime = unlockDate.toLocaleTimeString('en-IN', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                  });
+
+                  return (
+                    <div
+                      key={caseData.id}
+                      className="bg-detective-dark border border-detective-grey rounded-lg p-4"
+                    >
+                      <div className="flex items-start gap-3">
+                        <Lock className="w-5 h-5 text-detective-amber flex-shrink-0 mt-1" />
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-bold text-detective-amber-light mb-1 text-sm break-words">
+                            {caseData.title}
+                          </h3>
+                          <div className="text-xs text-foreground/60 mb-2">
+                            {caseData.id}
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            <div className="flex items-center gap-2 text-xs text-foreground/80">
+                              <span className="text-detective-amber">📅</span>
+                              <span>{formattedDate}</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs text-foreground/80">
+                              <span className="text-detective-amber">🕐</span>
+                              <span>{formattedTime}</span>
+                            </div>
+                            <div className="text-xs text-yellow-500 mt-1 font-medium">
+                              {getTimeUntilUnlock(caseData.unlock_time)}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
