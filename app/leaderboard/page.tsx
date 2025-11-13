@@ -15,12 +15,10 @@ export default function LeaderboardPage() {
 
   useEffect(() => {
     const session = getSession();
-    if (!session) {
-      router.push('/login');
-      return;
+    if (session) {
+      setCurrentPlayerNumber(session.playerNumber);
     }
-
-    setCurrentPlayerNumber(session.playerNumber);
+    
     loadLeaderboard();
 
     // Subscribe to real-time updates
@@ -215,11 +213,11 @@ export default function LeaderboardPage() {
         {/* Back Button */}
         <div className="mt-8 text-center">
           <button
-            onClick={() => router.push('/cases')}
+            onClick={() => router.push('/')}
             className="detective-button inline-flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Cases
+            Back to Home
           </button>
         </div>
       </div>
