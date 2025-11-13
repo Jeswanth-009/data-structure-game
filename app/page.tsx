@@ -49,7 +49,7 @@ export default function Home() {
                 <Target className="w-8 h-8 text-detective-amber mb-2" />
                 <h3 className="font-bold text-detective-amber mb-1">Solve Cases</h3>
                 <p className="text-sm text-foreground/70">
-                  Answer timed questions based on DSA concepts
+                  Answer questions based on DSA concepts
                 </p>
               </div>
               
@@ -57,7 +57,7 @@ export default function Home() {
                 <Trophy className="w-8 h-8 text-detective-amber mb-2" />
                 <h3 className="font-bold text-detective-amber mb-1">Earn Points</h3>
                 <p className="text-sm text-foreground/70">
-                  Correct answers and speed bonuses increase your score
+                  Correct answers increase your score
                 </p>
               </div>
               
@@ -71,8 +71,7 @@ export default function Home() {
             </div>
 
             <p className="leading-relaxed">
-              Your progress is automatically saved. New cases unlock on schedule. 
-              Time is crucial - solve them fast to earn bonus points!
+              Your progress is automatically saved. All cases are unlocked and ready to solve!
             </p>
           </div>
 
