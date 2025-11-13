@@ -119,12 +119,6 @@ export default function AdminLoginPage() {
             ← Back to Home
           </button>
         </div>
-
-        <div className="mt-6 p-4 bg-detective-dark rounded-lg">
-          <p className="text-xs text-foreground/50 text-center">
-            🔐 Demo Credentials: admin1 / admin123 or admin2 / admin123
-          </p>
-        </div>
       </div>
     </div>
   );
