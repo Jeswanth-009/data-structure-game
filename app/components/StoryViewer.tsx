@@ -202,31 +202,6 @@ export default function StoryViewer({ title, brief, onComplete }: StoryViewerPro
             <p className="text-base sm:text-lg text-foreground leading-relaxed animate-fade-in">
               {paragraphs[currentParagraph]}.
             </p>
-
-            {/* Clue boxes for specific parts */}
-            {currentParagraph === 2 && (
-              <div className="mt-6 bg-detective-charcoal border-2 border-detective-amber rounded-lg p-4 animate-slide-up">
-                <div className="text-detective-amber font-bold mb-2 font-mono">
-                  📋 EVIDENCE FOUND:
-                </div>
-                <div className="space-y-2 text-sm sm:text-base font-mono">
-                  <div className="text-foreground">1️⃣ ((Secret)(Safe))</div>
-                  <div className="text-foreground">2️⃣ )Locked(</div>
-                  <div className="text-foreground">3️⃣ !dlroW olleH</div>
-                </div>
-              </div>
-            )}
-
-            {currentParagraph === 3 && (
-              <div className="mt-6 bg-detective-red/20 border-2 border-detective-red rounded-lg p-4 animate-pulse-slow">
-                <div className="text-detective-red font-bold mb-2 font-mono">
-                  💬 HACKER'S NOTE:
-                </div>
-                <div className="text-foreground italic font-mono">
-                  "I hide things the way I store them..."
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Progress bar */}

@@ -193,7 +193,7 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
   5
 ),
 (
-(  'case_4',
+  'case_4',
   'The Treasure Trail',
   '📜 The Story: In the desert valley of Algoa, explorer Rhea Quest is on a mission to find the Golden Vault — a legendary treasure hidden deep inside a chain of ancient caves. Each cave offers some gold coins but consumes a certain amount of energy to enter. Rhea starts with K units of energy and must decide which caves to visit to collect the maximum gold before her energy runs out. Her mentor''s old journal reads: "You cannot explore every path. Choose wisely — and remember, small steps solved first lead to great success." 💾 The Clues: 1. Every cave has two numbers: Gold[i] → treasure amount, Energy[i] → cost to enter. 2. The total energy used cannot exceed K. 3. Rhea realizes that solving smaller journeys could help her solve the bigger one. 4. The goal is to maximize total gold collected without exceeding energy.',
   NOW(),
@@ -232,7 +232,7 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
   5
 ),
 (
-(  'case_5',
+  'case_5',
   'The Mirror Maze Mystery',
   '🕵️ The Story: Deep inside the Mirror Maze of AlgoRealm, detective Nova Trace chases a digital illusionist — The Recurser. Every corridor looks identical, yet slightly smaller than the last, looping endlessly like a reflection inside a reflection. A cryptic message flickers on the neon wall: "To find me, you must first find my smaller self." Nova realizes — each mirror contains half the maze, and within that, half again, until only a single room remains. The maze map flashes: Level 1 → 2 mirrors, Level 2 → 4 mirrors, Level 3 → 8 mirrors... The pattern seems infinite — but the detective knows there must be a base case that ends the recursion, or she''ll be lost forever. 💾 The Clues: 1. The maze divides itself into two smaller mazes each time you enter a mirror. 2. The process continues until a single corridor (base case) is reached. 3. Each recursion processes its part independently, then merges results. 4. Nova must understand how deep she''ll go and how much time it takes.',
   NOW(),
