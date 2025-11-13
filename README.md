@@ -137,20 +137,7 @@ c:\dsa game\
 - Answer multiple-choice questions before time runs out
 - Submit to see your score
 
-### 4️⃣ Scoring System
-
-```
-Total Score = (Correct × 10) - (Wrong × 5) + Time Bonus
-
-Time Bonus:
-- Complete in <25% of time: +20 points
-- Complete in <50% of time: +15 points
-- Complete in <75% of time: +10 points
-- Complete in <90% of time: +5 points
-- Otherwise: 0 points
-```
-
-### 5️⃣ Leaderboard
+### 4️⃣ Leaderboard
 
 - View global rankings
 - Live updates when anyone scores
