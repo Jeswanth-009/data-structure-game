@@ -67,7 +67,7 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
   'case_1',
   'The Reversal Riddle',
   '📜 The Story: It was a quiet night in Algo City when detective Lexa Code was called to the Cyber Archives. A hacker named Dr. Reverse had broken in again — this time, every message in the system looked strange. Some were written backward, others had half-open brackets, and all the clues seemed connected. On the main terminal, three mysterious lines glowed: 1️⃣ ((Secret)(Safe)) 2️⃣ )Locked( 3️⃣ !dlroW olleH. A note flashed on the screen: "I hide things the way I store them..." Lexa smiled. "He''s used this trick before," she whispered. Now it''s your turn to uncover the pattern and decode the clues. 💾 The Clues: You need to: 1. Check which code is properly balanced. 2. Decode the reversed message. 3. Figure out the time efficiency of the process.',
-  '2025-11-14 10:00:00+00'::TIMESTAMPTZ,
+  '2025-11-14 04:30:00+00'::TIMESTAMPTZ,
   '[
     {
       "q": "From the hacker''s note — Which data structure is he using?",
@@ -106,7 +106,7 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
   'case_2',
   'The Priority Predicament',
   '🏙️ The Story: In the bustling city of AlgoTown, the Emergency Control Center receives hundreds of alerts every hour — fire alarms, medical emergencies, lost pets, even traffic jams. One morning, the system fails. All alerts start getting handled in the wrong order — minor ones first, and critical ones much later! 🚨 The technician on duty, Officer Ray, reports: "We had a system that always took the most important alert first... but someone replaced it with one that just handles them in arrival order!" Now the city''s response team is in chaos. Your mission: restore order by rebuilding the correct handling system and understanding which data structure ensures the most urgent alerts are processed first. 💾 The Clues: Incoming alerts arrive in this order (with priority values in brackets): [Fire, 5], [Cat Missing, 1], [Accident, 4], [Power Outage, 3], [Water Leak, 2]. The current system processes them in arrival order (FIFO). The old system picked the highest-priority alert first. You must determine the right data structure and analyze its performance.',
-  '2025-11-14 14:00:00+00'::TIMESTAMPTZ,
+  '2025-11-14 08:30:00+00'::TIMESTAMPTZ,
   '[
     {
       "q": "Which data structure allows you to always process the highest-priority element first, even if it didn''t arrive first?",
@@ -157,7 +157,7 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
   'case_3',
   'The Network Nexus',
   '📜 The Story: A mysterious blackout hits Tech City. The entire power network—a web of stations connected by underground cables—has partially failed. Engineer-detective Aria Volt arrives at the Control Hub. Each power station is represented as a node, and cables as connections. On the system map, she sees: Station A → connected to B and C, Station B → connected to D, Station C → connected to D and E, Station D → connected to F, Station E → connected to F. The main power source (A) still works—but several districts at Station F have no electricity. Your task: help Aria trace the fastest way electricity can flow again. 💾 The Clues: 1. Every connection has equal length — one cable unit. 2. The system can travel along any active cable in either direction. 3. Aria must find the minimum number of hops from the source (A) to the target (F). 4. The old algorithm that tried all paths took too long. She needs something that explores level by level until the goal is found.',
-  '2025-11-14 18:00:00+00'::TIMESTAMPTZ,
+  '2025-11-14 12:30:00+00'::TIMESTAMPTZ,
   '[
     {
       "q": "What type of data structure represents stations and their cable connections?",
@@ -196,7 +196,7 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
   'case_4',
   'The Treasure Trail',
   '📜 The Story: In the desert valley of Algoa, explorer Rhea Quest is on a mission to find the Golden Vault — a legendary treasure hidden deep inside a chain of ancient caves. Each cave offers some gold coins but consumes a certain amount of energy to enter. Rhea starts with K units of energy and must decide which caves to visit to collect the maximum gold before her energy runs out. Her mentor''s old journal reads: "You cannot explore every path. Choose wisely — and remember, small steps solved first lead to great success." 💾 The Clues: 1. Every cave has two numbers: Gold[i] → treasure amount, Energy[i] → cost to enter. 2. The total energy used cannot exceed K. 3. Rhea realizes that solving smaller journeys could help her solve the bigger one. 4. The goal is to maximize total gold collected without exceeding energy.',
-  '2025-11-15 10:00:00+00'::TIMESTAMPTZ,
+  '2025-11-15 04:30:00+00'::TIMESTAMPTZ,
   '[
     {
       "q": "The problem of maximizing gold within a limited energy capacity is similar to which well-known algorithmic problem?",
@@ -235,7 +235,7 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
   'case_5',
   'The Mirror Maze Mystery',
   '🕵️ The Story: Deep inside the Mirror Maze of AlgoRealm, detective Nova Trace chases a digital illusionist — The Recurser. Every corridor looks identical, yet slightly smaller than the last, looping endlessly like a reflection inside a reflection. A cryptic message flickers on the neon wall: "To find me, you must first find my smaller self." Nova realizes — each mirror contains half the maze, and within that, half again, until only a single room remains. The maze map flashes: Level 1 → 2 mirrors, Level 2 → 4 mirrors, Level 3 → 8 mirrors... The pattern seems infinite — but the detective knows there must be a base case that ends the recursion, or she''ll be lost forever. 💾 The Clues: 1. The maze divides itself into two smaller mazes each time you enter a mirror. 2. The process continues until a single corridor (base case) is reached. 3. Each recursion processes its part independently, then merges results. 4. Nova must understand how deep she''ll go and how much time it takes.',
-  '2025-11-15 14:00:00+00'::TIMESTAMPTZ,
+  '2025-11-15 08:30:00+00'::TIMESTAMPTZ,
   '[
     {
       "q": "When a function calls itself with a smaller version of the same problem, what is this concept called?",
@@ -286,7 +286,7 @@ INSERT INTO cases (id, title, brief, unlock_time, questions, max_score) VALUES
   'case_6',
   'The Chain of Clues',
   '🕵️‍♂️ The Story: Detective Rian Linker receives a strange USB drive containing a file named: "chain_start.dat". When he opens it, he doesn''t find a document — he finds a series of records. Each record contains two things: A clue number, and A pointer to the next clue''s address. But some records have their "next clue" set to NULL, and one file seems to loop back to an earlier one — forming an endless cycle! Rian must trace the entire chain to uncover the final hidden message, but he must be careful — if he follows a circular path, he could be trapped forever. 💾 The Clues: 1. Each clue points to exactly one next clue (like a "next" pointer). 2. One clue''s next is NULL → this is the end of the chain. 3. Some corrupted drives loop back, forming a cycle. 4. You must detect whether a cycle exists — and if not, find the last clue.',
-  '2025-11-15 18:00:00+00'::TIMESTAMPTZ,
+  '2025-11-15 12:30:00+00'::TIMESTAMPTZ,
   '[
     {
       "q": "What data structure is being described here, where each element stores data and a pointer to the next element?",
