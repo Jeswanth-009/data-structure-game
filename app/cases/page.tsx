@@ -12,6 +12,7 @@ export default function CasesPage() {
   const router = useRouter();
   const [cases, setCases] = useState<Case[]>([]);
   const [player, setPlayer] = useState<Player | null>(null);
+  const [submittedCases, setSubmittedCases] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,6 +36,14 @@ export default function CasesPage() {
 
       if (playerError) throw playerError;
       setPlayer(playerData);
+
+      // Load submitted cases
+      const { data: submissionsData } = await supabase
+        .from('submissions')
+        .select('case_id')
+        .eq('player_id', playerId);
+
+      setSubmittedCases(submissionsData?.map(s => s.case_id) || []);
 
       // Load cases
       const { data: casesData, error: casesError } = await supabase
@@ -116,13 +125,17 @@ export default function CasesPage() {
             const completed = player?.completed_cases?.includes(caseData.id);
             const timeUntil = getTimeUntilUnlock(caseData.unlock_time);
 
+            const submitted = submittedCases.includes(caseData.id);
+
             return (
               <div
                 key={caseData.id}
-                className={`detective-file ${!unlocked ? 'case-locked' : ''} ${completed ? 'case-completed' : ''} cursor-pointer transition-transform hover:scale-105 active:scale-95`}
+                className={`detective-file ${!unlocked ? 'case-locked' : ''} ${completed ? 'case-completed' : ''} ${submitted ? 'case-submitted' : ''} ${unlocked && !submitted && !completed ? 'cursor-pointer transition-transform hover:scale-105 active:scale-95' : 'cursor-not-allowed'}`}
                 onClick={() => {
-                  if (unlocked && !completed) {
+                  if (unlocked && !completed && !submitted) {
                     router.push(`/case/${caseData.id}`);
+                  } else if (submitted) {
+                    alert('You have already submitted this case. Waiting for admin review.');
                   }
                 }}
               >
@@ -161,6 +174,10 @@ export default function CasesPage() {
                     {completed ? (
                       <div className="text-green-500 font-bold">
                         ✓ SOLVED
+                      </div>
+                    ) : submitted ? (
+                      <div className="text-yellow-500 font-bold">
+                        ⏳ SUBMITTED
                       </div>
                     ) : !unlocked ? (
                       <div className="text-detective-grey flex items-center gap-1">

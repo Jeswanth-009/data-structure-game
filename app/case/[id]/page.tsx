@@ -36,6 +36,23 @@ export default function CasePage() {
 
   const loadCase = async () => {
     try {
+      const session = getSession();
+      if (!session) return;
+
+      // Check if user has already submitted this case
+      const { data: existingSubmission } = await supabase
+        .from('submissions')
+        .select('*')
+        .eq('player_id', session.playerId)
+        .eq('case_id', caseId)
+        .single();
+
+      if (existingSubmission) {
+        alert('You have already attempted this case. Each case can only be attempted once.');
+        router.push('/cases');
+        return;
+      }
+
       const { data, error } = await supabase
         .from('cases')
         .select('*')

@@ -34,6 +34,10 @@
     @apply border-2 border-green-500 relative;
   }
 
+  .case-submitted {
+    @apply border-2 border-yellow-500 opacity-75;
+  }
+
   .typing-cursor::after {
     content: '|';
     animation: blink 1s infinite;
