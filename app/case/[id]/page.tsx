@@ -87,80 +87,38 @@ export default function CasePage() {
 
     setSubmitted(true);
 
-    // Calculate results
-    let correct = 0;
-    let wrong = 0;
-
-    caseData.questions.forEach((q: Question, index: number) => {
-      const userAnswer = answers[index];
-      
-      if (q.type === 'text') {
-        // Check if this question requires exact case matching
-        const requiresExactCase = q.q.toLowerCase().includes('case sensitive');
-        
-        if (requiresExactCase) {
-          // Exact match including case
-          const correctAnswer = String(q.answer).trim();
-          const providedAnswer = String(userAnswer || '').trim();
-          
-          if (providedAnswer && providedAnswer === correctAnswer) {
-            correct++;
-          } else if (providedAnswer) {
-            wrong++;
-          }
-        } else {
-          // Case insensitive comparison
-          const correctAnswer = normalizeAnswer(String(q.answer));
-          const providedAnswer = normalizeAnswer(String(userAnswer || ''));
-          
-          if (providedAnswer && providedAnswer === correctAnswer) {
-            correct++;
-          } else if (providedAnswer) {
-            wrong++;
-          }
-        }
-      } else {
-        // MCQ answer
-        if (userAnswer === q.answer) {
-          correct++;
-        } else if (userAnswer !== -1 && userAnswer !== '') {
-          wrong++;
-        }
-      }
-    });
-
-    const totalScore = calculateScore(correct, wrong);
-
-    // Update player score
+    // Don't calculate score automatically - just submit for review
     const session = getSession();
-    if (session) {
-      try {
-        const { data: player } = await supabase
-          .from('players')
-          .select('*')
-          .eq('id', session.playerId)
-          .single();
-
-        if (player) {
-          await supabase
-            .from('players')
-            .update({
-              score: player.score + totalScore,
-              completed_cases: [...(player.completed_cases || []), caseId],
-            })
-            .eq('id', session.playerId);
-        }
-      } catch (error) {
-        console.error('Error updating score:', error);
-      }
+    if (!session) {
+      alert('Session expired. Please login again.');
+      router.push('/login');
+      return;
     }
 
-    setResult({
-      correct,
-      wrong,
-      unanswered: caseData.questions.length - correct - wrong,
-      totalScore,
-    });
+    try {
+      // Create submission for admin review
+      const { error: submissionError } = await supabase
+        .from('submissions')
+        .insert({
+          player_id: session.playerId,
+          case_id: caseId,
+          answers: answers,
+          score: 0, // Initial score is 0, will be updated by admin
+          status: 'pending',
+        });
+
+      if (submissionError) throw submissionError;
+
+      // Show success message
+      setResult({
+        submitted: true,
+        message: 'Your answers have been submitted for review!',
+      });
+    } catch (error) {
+      console.error('Error submitting case:', error);
+      alert('Failed to submit case. Please try again.');
+      setSubmitted(false);
+    }
   };
 
   if (loading) {
@@ -186,44 +144,34 @@ export default function CasePage() {
       <div className="min-h-screen bg-gradient-to-br from-detective-dark via-background to-detective-charcoal flex items-center justify-center p-4">
         <div className="max-w-2xl w-full detective-file">
           <div className="text-center mb-6">
-            <Trophy className="w-16 h-16 text-detective-amber mx-auto mb-4" />
+            <Clock className="w-16 h-16 text-detective-amber mx-auto mb-4" />
             <h1 className="text-3xl font-bold text-detective-amber mb-2 font-mono">
-              CASE SOLVED!
+              SUBMISSION RECEIVED!
             </h1>
             <p className="text-foreground/70">{caseData.title}</p>
           </div>
 
           <div className="bg-detective-dark rounded-lg p-6 mb-6">
-            <h3 className="text-lg font-bold text-detective-amber mb-4">Investigation Results</h3>
+            <h3 className="text-lg font-bold text-detective-amber mb-4">📝 Status</h3>
             
-            <div className="space-y-3">
-              <div className="flex justify-between items-center pb-2 border-b border-detective-grey">
-                <span className="text-foreground/70 flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
-                  Correct Answers
-                </span>
-                <span className="text-detective-amber font-bold">{result.correct} × 1 = {result.correct} pts</span>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-4 bg-yellow-500/10 border border-yellow-500 rounded-lg">
+                <Clock className="w-6 h-6 text-yellow-500 flex-shrink-0" />
+                <div className="flex-1">
+                  <p className="font-bold text-yellow-500 mb-1">Pending Review</p>
+                  <p className="text-sm text-foreground/70">
+                    Your answers have been submitted and are waiting for admin review.
+                  </p>
+                </div>
               </div>
 
-              <div className="flex justify-between items-center pb-2 border-b border-detective-grey">
-                <span className="text-foreground/70 flex items-center gap-2">
-                  <XCircle className="w-5 h-5 text-detective-red" />
-                  Wrong Answers
-                </span>
-                <span className="text-detective-red font-bold">{result.wrong}</span>
-              </div>
-
-              <div className="flex justify-between items-center pb-2 border-b border-detective-grey">
-                <span className="text-foreground/70 flex items-center gap-2">
-                  <AlertCircle className="w-5 h-5 text-foreground/50" />
-                  Unanswered
-                </span>
-                <span className="text-foreground/50">{result.unanswered}</span>
-              </div>
-
-              <div className="flex justify-between items-center pt-3">
-                <span className="text-lg font-bold text-detective-amber">TOTAL SCORE</span>
-                <span className="text-2xl font-bold text-detective-amber">{result.totalScore} pts</span>
+              <div className="p-4 bg-detective-charcoal rounded-lg">
+                <p className="text-foreground/80 text-sm leading-relaxed">
+                  ✅ Your submission includes {answers.filter(a => a !== -1 && a !== '').length} out of {caseData.questions.length} answers
+                </p>
+                <p className="text-foreground/60 text-xs mt-2">
+                  An admin will review your answers and update your score on the leaderboard soon.
+                </p>
               </div>
             </div>
           </div>
@@ -234,6 +182,15 @@ export default function CasePage() {
           >
             BACK TO CASES
           </button>
+
+          <div className="mt-4 text-center">
+            <button
+              onClick={() => router.push('/leaderboard')}
+              className="text-detective-amber hover:text-detective-amber-light transition-colors text-sm"
+            >
+              View Leaderboard →
+            </button>
+          </div>
         </div>
       </div>
     );

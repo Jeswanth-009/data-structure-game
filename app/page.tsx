@@ -83,9 +83,24 @@ export default function Home() {
             🔍 BEGIN INVESTIGATION
           </button>
           
+          <div className="mt-4 flex gap-3">
+            <button
+              onClick={() => router.push('/admin/login')}
+              className="flex-1 bg-detective-charcoal hover:bg-detective-grey text-detective-amber border border-detective-amber font-bold py-2 px-4 rounded-lg transition-all text-sm"
+            >
+              🛡️ Admin Login
+            </button>
+            <button
+              onClick={() => router.push('/leaderboard')}
+              className="flex-1 bg-detective-charcoal hover:bg-detective-grey text-detective-amber border border-detective-amber font-bold py-2 px-4 rounded-lg transition-all text-sm"
+            >
+              🏆 Leaderboard
+            </button>
+          </div>
+          
           <div className="mt-4 p-3 bg-detective-dark rounded-lg border border-detective-grey/50">
             <p className="text-xs sm:text-sm text-foreground/70 text-center">
-              💡 <strong className="text-detective-amber">Note:</strong> All text answers are case-insensitive. Type naturally!
+              💡 <strong className="text-detective-amber">Note:</strong> Answers are reviewed by admins before scores are updated!
             </p>
           </div>
         </div>
